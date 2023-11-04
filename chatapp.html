@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Chat App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #login-page, #chat-page {
+            display: none;
+            text-align: center;
+        }
+
+        #login-page {
+            background-color: #f1f1f1;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #chat-page {
+            background-color: #ececec;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #messages {
+            flex: 1;
+            overflow: auto;
+        }
+
+        #message-input {
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-top: 1px solid #ccc;
+        }
+
+        #send-button {
+            background-color: #0074d9;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="login-page">
+        <h1>Login to Chat</h1>
+        <input type="text" id="username" placeholder="Username">
+        <button id="login-button">Login</button>
+    </div>
+
+    <div id="chat-page">
+        <h1>Chat Room</h1>
+        <div id="messages"></div>
+        <input type="text" id="message-input" placeholder="Type your message">
+        <button id="send-button">Send</button>
+    </div>
+
+    <script>
+        const loginPage = document.getElementById("login-page");
+        const chatPage = document.getElementById("chat-page");
+        const usernameInput = document.getElementById("username");
+        const loginButton = document.getElementById("login-button");
+        const messages = document.getElementById("messages");
+        const messageInput = document.getElementById("message-input");
+        const sendButton = document.getElementById("send-button");
+
+        let username = "";
+
+        loginButton.addEventListener("click", () => {
+            username = usernameInput.value;
+            if (username.trim() !== "") {
+                loginPage.style.display = "none";
+                chatPage.style.display = "block";
+            }
+        });
+
+        sendButton.addEventListener("click", () => {
+            const message = messageInput.value;
+            if (message.trim() !== "") {
+                sendMessage(username, message);
+                messageInput.value = "";
+            }
+        });
+
+        function sendMessage(sender, message) {
+            const messageDiv = document.createElement("div");
+            messageDiv.textContent = `${sender}: ${message}`;
+            messages.appendChild(messageDiv);
+        }
+    </script>
+</body>
+</html>
